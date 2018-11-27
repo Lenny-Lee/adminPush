@@ -1,0 +1,30 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.springapp.push"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="datasource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <!--注意一下&characterEncoding要修改为&amp;characterEncoding-->
+        <!--<property name="url" value="jdbc:mysql://202.102.83.159:3306/zabbix_365?useUnicode=true&amp;characterEncoding=utf-8"/>-->
+        <property name="url" value="jdbc:mysql://172.17.1.159:3306/zabbix_365?useUnicode=true&amp;characterEncoding=utf-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="idontcare" />
+    </bean>
+
+    <bean id="messageImpl"
+          class="com.springapp.push.jdbc.MessageImpl">
+        <property name="datasource" ref="datasource" />
+    </bean>
+
+</beans>
