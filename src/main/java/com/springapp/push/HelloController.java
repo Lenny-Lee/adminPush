@@ -80,9 +80,11 @@ public class HelloController {
 
 	public static PushPayload buildPushObject_IOS_tag_Message(String pushMessage) {
 		String json = "{\"message\":\""+pushMessage+"\",\"time\":\""+simpleDateFormat.format(new Date())+"\"}";
+		String[] tags = new String[1];
+		tags[0] = "wangshibin_tf";
 		return PushPayload.newBuilder()
 				.setPlatform(Platform.ios())
-				.setAudience(Audience.all())
+				.setAudience(Audience.alias(tags))
 				.setNotification(Notification.newBuilder().addPlatformNotification(
 						IosNotification.newBuilder().setAlert(pushMessage).incrBadge(1).build()).build()).build();
 //		return PushPayload.alertAll(pushMessage);
